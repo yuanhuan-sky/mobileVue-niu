@@ -12,6 +12,7 @@
         placeholder="请输入手机号"
         clearable
         left-icon="contact"
+        :error-message="mobileErrorMsg"
       />
       <van-field
         v-model="user.code"
@@ -38,12 +39,21 @@ export default {
       user: {
         mobile: '13911111111',
         code: '246810'
-      }
+      },
+      mobileErrorMsg: ''
     }
   },
   methods: {
     // 点击按钮登录
     async handleLogin () {
+      // 表单校验
+      if (this.user.mobile.trim().length === 0) {
+        this.mobileErrorMsg = '请输入手机号码'
+        return
+      } else {
+        this.mobileErrorMsg = ''
+      }
+
       try {
         // 登录状态 -- token
         const data = await login(this.user)
