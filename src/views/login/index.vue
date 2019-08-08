@@ -24,13 +24,14 @@
       </van-field>
 
       <div class="login-btn">
-        <van-button class="btn" type="info">登录</van-button>
+        <van-button @click="handleLogin" class="btn" type="info">登录</van-button>
       </div>
     </van-cell-group>
   </div>
 </template>
 
 <script>
+import { login } from '@/api/user'
 export default {
   data () {
     return {
@@ -38,6 +39,13 @@ export default {
         mobile: '13911111111',
         code: '246810'
       }
+    }
+  },
+  methods: {
+    // 点击按钮登录
+    async handleLogin () {
+      const data = await login(this.user)
+      console.log(data)
     }
   }
 }
