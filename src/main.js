@@ -7,6 +7,10 @@ import 'vant/lib/index.css'
 import '@/styles/index.less'
 
 import 'amfe-flexible'
+// 表单验证插件
+import VeeValidate from 'vee-validate'
+
+Vue.use(VeeValidate)
 
 Vue.use(Vant)
 
