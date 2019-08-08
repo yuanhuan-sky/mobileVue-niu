@@ -11,7 +11,7 @@
       <!-- errors.first('文本框的name属性的值') -->
       <van-field
         name="mobile"
-        v-validate="'required'"
+        v-validate="'required|digits:11'"
         v-model="user.mobile"
         label="手机号"
         placeholder="请输入手机号"
@@ -21,6 +21,9 @@
       />
       <van-field
         v-model="user.code"
+        v-validate="'required|digits:6'"
+        name="code"
+        :error-message="errors.first('code')"
         label="验证码"
         placeholder="请输入验证码"
         clearable
