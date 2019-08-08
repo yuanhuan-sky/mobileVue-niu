@@ -44,8 +44,19 @@ export default {
   methods: {
     // 点击按钮登录
     async handleLogin () {
-      const data = await login(this.user)
-      console.log(data)
+      try {
+        // 登录状态 -- token
+        const data = await login(this.user)
+
+        // 跳转之前保持登录状态
+        this.$store.commit('setUser', data)
+        // 跳转到 home
+        this.$router.push({
+          name: 'home'
+        })
+      } catch (err) {
+        console.log('登录失败' + err)
+      }
     }
   }
 }
