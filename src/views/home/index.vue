@@ -59,7 +59,6 @@ export default {
     // 加载频道数据
     async loadChannels () {
       try {
-
         // 判断用户是否登录
         // 如果用户登录，调用getUserChannels获取频道数据
         if (this.$store.state.user) {
