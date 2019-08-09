@@ -33,7 +33,13 @@
       </van-field>
 
       <div class="login-btn">
-        <van-button @click="handleLogin" class="btn" type="info">登录</van-button>
+        <van-button
+          :loading="loading"
+          loading-type="spinner"
+          loading-text="登录中..."
+          @click="handleLogin"
+          class="btn"
+          type="info">登录</van-button>
       </div>
     </van-cell-group>
   </div>
@@ -65,17 +71,21 @@ export default {
       user: {
         mobile: '13911111111',
         code: '246810'
-      }
+      },
+      // 控制按钮显示正在加载...
+      loading: false
     }
   },
   methods: {
     // 点击按钮登录
     async handleLogin () {
+      this.loading = true
       try {
         // 验证表单输入
         const valide = await this.$validator.validate()
         // 如果验证失败返回
         if (!valide) {
+          this.loading = false
           return
         }
 
@@ -88,10 +98,13 @@ export default {
         this.$router.push({
           name: 'home'
         })
+        this.$toast.success('登录成功')
 
       } catch (err) {
         console.log('登录失败' + err)
+        this.$toast.fail('登录失败')
       }
+      this.loading = false
     }
   }
 }
