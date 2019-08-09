@@ -78,5 +78,10 @@ export default {
   margin-bottom: 100px;
   margin-top: 92px;
 }
+// 在scoped里面，动态生成的内容，对应的样式不起作用
+// .van-tabs /deep/ .van-tabs__content {
+//   margin-top: 300px;
+//   color: red;
+// }
 </style>
 
