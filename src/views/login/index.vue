@@ -72,15 +72,23 @@ export default {
     // 点击按钮登录
     async handleLogin () {
       try {
-        // 登录状态 -- token
-        const data = await login(this.user)
+        // 验证表单输入
+        this.$validator.validate().then(async valid => {
+          // 验证通过
+          if (valid) {
+            // do stuff if not valid.
+            // 登录状态 -- token
+            const data = await login(this.user)
 
-        // 跳转之前保持登录状态
-        this.$store.commit('setUser', data)
-        // 跳转到 home
-        this.$router.push({
-          name: 'home'
+            // 跳转之前保持登录状态
+            this.$store.commit('setUser', data)
+            // 跳转到 home
+            this.$router.push({
+              name: 'home'
+            })
+          }
         })
+
       } catch (err) {
         console.log('登录失败' + err)
       }
