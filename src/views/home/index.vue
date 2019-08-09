@@ -10,7 +10,10 @@
 
       <!-- 频道列表 -->
       <van-tabs>
-        <van-tab v-for="index in 8" :title="'标签 ' + index" :key="index">
+        <van-tab
+          v-for="channel in channels"
+          :title="channel.name"
+          :key="channel.id">
           <!-- 文章列表-自带上拉加载更多 -->
           <van-list
             v-model="loading"
@@ -33,6 +36,7 @@
 </template>
 
 <script>
+import { getUserChannels } from '@/api/channel'
 export default {
   name: 'Home',
   data () {
@@ -42,10 +46,25 @@ export default {
       loading: false,
       finished: false,
       // 下拉刷新需要的数据
-      isLoading: false
+      isLoading: false,
+      // 存储频道数据
+      channels: []
     }
   },
+  created () {
+    // 加载用户的频道数据  
+    this.loadChannels()
+  },
   methods: {
+    // 加载频道数据
+    async loadChannels () {
+      try {
+        const data = await getUserChannels()
+        this.channels = data.channels
+      } catch (err) {
+        this.$toast.fail('获取频道数据失败' + err)
+      }
+    },
     // list 组件的
     onLoad() {
       // 异步更新数据
