@@ -59,8 +59,24 @@ export default {
     // 加载频道数据
     async loadChannels () {
       try {
-        const data = await getUserChannels()
-        this.channels = data.channels
+
+        // 判断用户是否登录
+        // 如果用户登录，调用getUserChannels获取频道数据
+        if (this.$store.state.user) {
+          const data = await getUserChannels()
+          this.channels = data.channels
+        } else {
+          // 如果用户没有登录
+          //    从本地存储中获取数据
+          //    如果本地存储中没有数据，调用getUserChannels获取频道数据
+          //    把获取到的频道数据，存储到本地存储中
+          this.channels = JSON.parse(window.localStorage.getItem('channels')) || []
+          if (this.channels.length === 0) {
+            const data = await getUserChannels()
+            this.channels = data.channels
+            window.localStorage.setItem('channels', JSON.stringify(this.channels))
+          }
+        }
       } catch (err) {
         this.$toast.fail('获取频道数据失败' + err)
       }
