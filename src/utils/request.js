@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '@/store'
 
 const request = axios.create({
   baseURL: 'http://ttapi.research.itcast.cn'
@@ -8,6 +9,11 @@ const request = axios.create({
 // 请求拦截器
 request.interceptors.request.use(function (config) {
   // Do something before request is sent
+  // 判断用户是否登录，如果用户登录，设置请求头中的Authorization
+  if (store.state.user) {
+    config.headers.Authorization = `Bearer ${store.state.user.token}`
+  }
+
   return config;
 }, function (error) {
   // Do something with request error
