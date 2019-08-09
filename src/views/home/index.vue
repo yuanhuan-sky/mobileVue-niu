@@ -21,10 +21,11 @@
             finished-text="没有更多了"
             @load="onLoad"
           >
+          <!-- 展示文章列表 -->
             <van-cell
-              v-for="item in list"
-              :key="item"
-              :title="item"
+              v-for="item in channel.articles"
+              :key="item.art_id"
+              :title="item.title"
             />
           </van-list>
         </van-tab>
@@ -51,7 +52,8 @@ export default {
       // 存储频道数据
       channels: [],
       // 激活的频道的tab的索引
-      activeTabIndex: 0
+      activeTabIndex: 0,
+      timestamp: Date.now()
     }
   },
   created () {
@@ -79,16 +81,34 @@ export default {
             window.localStorage.setItem('channels', JSON.stringify(this.channels))
           }
         }
+
+        // this.channels ===> [{id:1,name:'xx'}]
+        // 希望 this.channels ===> [{id:1,name:'xx',articles:[]}]
+        // 给每一个频道对象，添加一个属性 文章列表 articles
+        this.channels.forEach((item) => {
+          item.articles = []
+        })
       } catch (err) {
         this.$toast.fail('获取频道数据失败' + err)
       }
     },
     // list 组件的
     async onLoad() {
+      // 当list组件的load事件触发，会把loading设置为true
       // 获取当前频道的id
       const activeChannel = this.channels[this.activeTabIndex]
       const id = activeChannel.id
-      const data = await getUserArticles({ channelId: id })
+      const data = await getUserArticles({ channelId: id, timestamp: this.timestamp })
+
+      // 把文章列表存储到 channel的articles属性中
+      // activeChannel.articles = data.results
+      // [{},{}, {}]
+      activeChannel.articles.push(...data.results)
+
+      // 保存data中的pre_timestamp
+      this.timestamp = data.pre_timestamp
+
+      this.loading = false
       console.log(data)
       // 发送请求
 
