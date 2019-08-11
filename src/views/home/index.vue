@@ -40,7 +40,7 @@
                   <span>{{ item.comm_count }}条评论</span>&nbsp;
                   <span>{{ item.pubdate | fmtDate }}</span>&nbsp;
 
-                  <van-icon class="close" name="close" @click="showAction = true" />
+                  <van-icon class="close" name="close" @click="hanleActionShow(item)" />
                 </p>
               </div>
             </van-cell>
@@ -53,7 +53,7 @@
       :value="showAction"
       @input="showAction = $event"
     -->
-    <more-action v-model="showAction"></more-action>
+    <more-action :currentArticle="currentArticle" v-model="showAction"></more-action>
   </div>
 </template>
 
@@ -79,7 +79,9 @@ export default {
       // 激活的频道的tab的索引
       activeTabIndex: 0,
       // 控制action显示或者隐藏
-      showAction: false
+      showAction: false,
+      // 点击x按钮的时候，记录当前要操作的文章对象
+      currentArticle: {}
     }
   },
   created () {
@@ -157,6 +159,13 @@ export default {
         this.$toast('刷新成功');
         this.isLoading = false;
       }, 1000);
+    },
+    // 点击x按钮的时候
+    // 弹出MoreAction组件
+    // 记录当前要操作的文章
+    hanleActionShow (item) {
+      this.showAction = true
+      this.currentArticle = item
     }
   }
 }
