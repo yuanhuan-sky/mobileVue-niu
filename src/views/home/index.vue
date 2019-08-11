@@ -10,6 +10,9 @@
 
       <!-- 频道列表 -->
       <van-tabs @change="handleChange" v-model="activeTabIndex">
+        <div slot="nav-right">
+          <van-icon class="wap-nav" name="wap-nav" />
+        </div>
         <van-tab
           v-for="channel in channels"
           :title="channel.name"
@@ -194,6 +197,11 @@ export default {
 .close {
   float: right;
   font-size: 30px;
+}
+.wap-nav {
+  position: fixed;
+  right: 0;
+  line-height: 88px;
 }
 // 在scoped里面，动态生成的内容，对应的样式不起作用
 // .van-tabs /deep/ .van-tabs__content {
