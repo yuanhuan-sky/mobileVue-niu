@@ -24,7 +24,7 @@
           <!-- 展示文章列表 -->
             <van-cell
               v-for="item in channel.articles"
-              :key="item.art_id"
+              :key="item.art_id.toString()"
               :title="item.title"
             >
               <div slot="label">

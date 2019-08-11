@@ -9,3 +9,12 @@ export const login = ({
     code
   })
 }
+
+/**
+ * 拉黑作者
+ */
+export const blackUserList = (id) => {
+  return request.post('/app/v1_0/user/blacklists', {
+    target: id
+  })
+}
