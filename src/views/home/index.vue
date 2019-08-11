@@ -9,9 +9,8 @@
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
 
       <!-- 频道列表 -->
-      <van-tabs v-model="activeTabIndex">
+      <van-tabs @change="handleChange" v-model="activeTabIndex">
         <van-tab
-          @change="handleChange"
           v-for="channel in channels"
           :title="channel.name"
           :key="channel.id">
@@ -105,7 +104,10 @@ export default {
         // 希望 this.channels ===> [{id:1,name:'xx',articles:[]}]
         // 给每一个频道对象，添加一个属性 文章列表 articles
         this.channels.forEach((item) => {
-          item.articles = []
+          // 动态增加的属性默认不是响应式的
+          // item.articles = []
+          // 通过$set 动态给对象，增加一个响应式数据
+          this.$set(item, 'articles', [])
         })
       } catch (err) {
         this.$toast.fail('获取频道数据失败' + err)
@@ -126,24 +128,7 @@ export default {
 
       // 保存data中的pre_timestamp
       this.timestamp = data.pre_timestamp
-
-      this.loading = false
-      console.log(data)
-      // 发送请求
-
-      // // 异步更新数据
-      // setTimeout(() => {
-      //   for (let i = 0; i < 10; i++) {
-      //     this.list.push(this.list.length + 1);
-      //   }
-      //   // 加载状态结束
-      //   this.loading = false;
-
-      //   // 数据全部加载完成
-      //   if (this.list.length >= 40) {
-      //     this.finished = true;
-      //   }
-      // }, 1000);
+      // this.loading = false
     },
     // 下拉刷新组件的
     onRefresh() {
