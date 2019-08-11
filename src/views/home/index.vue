@@ -116,6 +116,9 @@ export default {
     },
     // list 组件的
     async onLoad() {
+      // 写一行代码，延时 800 毫秒，再执行后续的代码
+      await this.$sleep(2000)
+
       // 当list组件的load事件触发，会把loading设置为true
       // 获取当前频道的id
       const activeChannel = this.channels[this.activeTabIndex]

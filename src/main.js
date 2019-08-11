@@ -23,6 +23,15 @@ Validator.localize('zh_CN', zhCN)
 Vue.use(Vant)
 Vue.use(Lazyload)
 
+// 给所有vue的实例增加一个$sleep的方法，延时执行
+Vue.prototype.$sleep = (time) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve()
+    }, time);
+  })
+}
+
 Vue.config.productionTip = false
 
 new Vue({
