@@ -53,7 +53,7 @@
       :value="showAction"
       @input="showAction = $event"
     -->
-    <more-action :currentArticle="currentArticle" v-model="showAction"></more-action>
+    <more-action @handleSuccess="handleSuccess" :currentArticle="currentArticle" v-model="showAction"></more-action>
   </div>
 </template>
 
@@ -166,6 +166,21 @@ export default {
     hanleActionShow (item) {
       this.showAction = true
       this.currentArticle = item
+    },
+    // moreaction操作成功执行
+    handleSuccess () {
+      // 如果成功，告诉home组件--》隐藏moreaction，移除不感兴趣的文章
+      this.showAction = false
+      // 获取当前频道的文章
+      const articles = this.channels[this.activeTabIndex].articles
+      // 要删除的文章 currentArticle
+      
+      const index = articles.findIndex((item) => {
+        // findIndex会返回，返回true时候的那条数据的索引
+        return item.art_id === this.currentArticle.art_id
+      })
+
+      articles.splice(index, 1)
     }
   }
 }
