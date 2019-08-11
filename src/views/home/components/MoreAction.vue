@@ -1,8 +1,13 @@
 <template>
 <!-- 点击遮罩层，隐藏dialog -->
+    <!-- v-model="show" 在自定义组件中相当于
+      :value="show"
+      @input="show = $event"
+     -->
   <van-dialog
     :showConfirmButton="false"
-    v-model="show"
+    :value="show"
+    @input="show = $event"
     closeOnClickOverlay
   >
     Hello world
