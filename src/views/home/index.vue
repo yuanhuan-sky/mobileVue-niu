@@ -39,6 +39,8 @@
                   <span>{{ item.aut_name }}</span>&nbsp;
                   <span>{{ item.comm_count }}条评论</span>&nbsp;
                   <span>{{ item.pubdate | fmtDate }}</span>&nbsp;
+
+                  <van-icon class="close" name="close" />
                 </p>
               </div>
             </van-cell>
@@ -47,15 +49,20 @@
       </van-tabs>
     
     </van-pull-refresh>
-
+    <!-- MoreAction -->
+    <more-action></more-action>
   </div>
 </template>
 
 <script>
 import { getUserChannels } from '@/api/channel'
 import { getUserArticles } from '@/api/article'
+import MoreAction from './components/MoreAction'
 export default {
   name: 'Home',
+  components: {
+    MoreAction
+  },
   data () {
     return {
       // list 需要的数据
@@ -154,6 +161,10 @@ export default {
 .van-tabs {
   margin-bottom: 100px;
   margin-top: 92px;
+}
+.close {
+  float: right;
+  font-size: 30px;
 }
 // 在scoped里面，动态生成的内容，对应的样式不起作用
 // .van-tabs /deep/ .van-tabs__content {
