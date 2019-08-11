@@ -67,8 +67,7 @@ export default {
       // 存储频道数据
       channels: [],
       // 激活的频道的tab的索引
-      activeTabIndex: 0,
-      timestamp: Date.now()
+      activeTabIndex: 0
     }
   },
   created () {
@@ -108,6 +107,8 @@ export default {
           // item.articles = []
           // 通过$set 动态给对象，增加一个响应式数据
           this.$set(item, 'articles', [])
+          // 设置每个频道具有自己的时间戳
+          item.timestamp = Date.now()
         })
       } catch (err) {
         this.$toast.fail('获取频道数据失败' + err)
@@ -119,7 +120,7 @@ export default {
       // 获取当前频道的id
       const activeChannel = this.channels[this.activeTabIndex]
       const id = activeChannel.id
-      const data = await getUserArticles({ channelId: id, timestamp: this.timestamp })
+      const data = await getUserArticles({ channelId: id, timestamp: activeChannel.timestamp })
 
       // 把文章列表存储到 channel的articles属性中
       // activeChannel.articles = data.results
@@ -128,7 +129,12 @@ export default {
 
       // 保存data中的pre_timestamp
       this.timestamp = data.pre_timestamp
-      // this.loading = false
+      this.loading = false
+
+      // 判断是否加载完所有数据
+      if (data.results.length === 0) {
+        this.finished = true
+      }
     },
     // 下拉刷新组件的
     onRefresh() {
