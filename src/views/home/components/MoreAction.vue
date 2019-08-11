@@ -6,8 +6,8 @@
      -->
   <van-dialog
     :showConfirmButton="false"
-    :value="show"
-    @input="show = $event"
+    :value="value"
+    @input="$emit('input', $event)"
     closeOnClickOverlay
   >
     Hello world
@@ -17,11 +17,7 @@
 <script>
 export default {
   name: "MoreAction",
-  data () {
-    return {
-      show: true
-    }
-  }
+  props: ['value']
 }
 </script>
 
