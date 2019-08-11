@@ -7,6 +7,9 @@ import 'vant/lib/index.css'
 import '@/styles/index.less'
 
 import 'amfe-flexible'
+// 导入过滤器
+import '@/filters'
+
 // 表单验证插件
 import VeeValidate, { Validator } from 'vee-validate'
 // 汉化文件
