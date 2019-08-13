@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { getAllChannels } from '@/api/channel'
+import { getAllChannels, deleteUserChannel } from '@/api/channel'
 export default {
   name: 'HomeChannel',
   props: ['value', 'channels', 'activeIndex'],
@@ -99,7 +99,7 @@ export default {
       }
     },
     // 点击我的频道，把当前索引传递给home组件，并且隐藏当前组件
-    handleMy (index) {
+    async handleMy (index) {
       // 判断当前是否是编辑模式
       if (!this.showClose) {
         this.$emit('selectMyIndex', index)
@@ -108,9 +108,14 @@ export default {
         if (index === 0) {
           return
         }
+
+        // 获取当前点击的频道的id
+        const id = this.channels[index].id
         // 仅仅删除了内存中的数据
         this.channels.splice(index, 1)
         // 发送请求，记录当前我的频道
+        // 判断异常
+        await deleteUserChannel(id)
       }
     },
     // 点击推荐频道，把点击的频道添加到我的频道
