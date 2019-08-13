@@ -6,7 +6,7 @@
       title="黑马头条"
     />
     <!-- 下拉刷新 -->
-    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh" :success-text="successText">
 
       <!-- 频道列表 -->
       <van-tabs @change="handleChange" v-model="activeTabIndex">
@@ -95,7 +95,9 @@ export default {
       // 点击x按钮的时候，记录当前要操作的文章对象
       currentArticle: {},
       // 控制频道管理组件的显示和隐藏
-      showChannel: false
+      showChannel: false,
+      // 下拉更新成功以后提示的文字
+      successText: ''
     }
   },
   created () {
@@ -168,11 +170,15 @@ export default {
       }
     },
     // 下拉刷新组件的
-    onRefresh() {
-      setTimeout(() => {
-        this.$toast('刷新成功');
-        this.isLoading = false;
-      }, 1000);
+    async onRefresh() {
+      // 获取当前频道的id
+      const activeChannel = this.channels[this.activeTabIndex]
+      const id = activeChannel.id
+      const data = await getUserArticles({ channelId: id, timestamp: Date.now() })
+      activeChannel.articles.unshift(...data.results)
+      this.isLoading = false
+
+      this.successText = `${data.results.length}条数据加载完毕`
     },
     // 点击x按钮的时候
     // 弹出MoreAction组件
