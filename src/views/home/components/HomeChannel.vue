@@ -14,10 +14,16 @@
         </div>
         <div>
           <van-button
+            v-show="!showClose"
+            @click="showClose=true"
             type="danger"
             plain
             size="mini"
           >编辑</van-button>
+          <div v-show="showClose" class="btn">
+            <span>全部删除</span>&nbsp;
+            <span @click="showClose=false">完成</span>
+          </div>
         </div>
       </div>
       <van-grid class="channel-content" :gutter="10" clickable>
@@ -26,7 +32,7 @@
           :key="value"
           text="文字">
           <span class="text">文字</span>
-          <van-icon class="close-icon" name="close" />
+          <van-icon class="close-icon" name="close" v-show="showClose" />
         </van-grid-item>
       </van-grid>
     </div>
@@ -55,7 +61,12 @@
 <script>
 export default {
   name: 'HomeChannel',
-  props: ['value']
+  props: ['value'],
+  data () {
+    return {
+      showClose: false
+    }
+  }
 }
 </script>
 
@@ -72,6 +83,9 @@ export default {
     }
     .desc {
       font-size: 12px;
+    }
+    .btn {
+      font-size: 30px;
     }
   }
   .channel-content {
