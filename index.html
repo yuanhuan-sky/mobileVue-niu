@@ -31,29 +31,29 @@
     // }, 100);
 
 
-    // 函数防抖 - 原理
-    function fn () {
-      console.log('xxxxxx')
-      console.log(this)
-    }
+    // // 函数防抖 - 原理
+    // function fn () {
+    //   console.log('xxxxxx')
+    //   console.log(this)
+    // }
 
-    var obj = { fun: debounce(fn, 400) }
-    obj.fun()
-    obj.fun()
-    obj.fun()
+    // var obj = { fun: debounce(fn, 400) }
+    // obj.fun()
+    // obj.fun()
+    // obj.fun()
 
-    function debounce (fn, delay) {
-      // 定时器
-      var timerId
-      return function () {
-        clearTimeout(timerId)
-        timerId = setTimeout(() => {
-          // 1. this指向的问题
-          // 2. 参数的问题
-          fn.apply(this, arguments)
-        }, delay);
-      }
-    }
+    // function debounce (fn, delay) {
+    //   // 定时器
+    //   var timerId
+    //   return function () {
+    //     clearTimeout(timerId)
+    //     timerId = setTimeout(() => {
+    //       // 1. this指向的问题
+    //       // 2. 参数的问题
+    //       fn.apply(this, arguments)
+    //     }, delay);
+    //   }
+    // }
 
     // var f = debounce(, 400)
     // f()
@@ -61,6 +61,31 @@
     // f()
     // f()
     // f()
+
+
+
+
+
+    // 函数节流 throttle
+    // 不管调用多少次fn，最终只执行一次
+    // 调用很多次f，会立即执行一次，然后在指定的时间内不管调用多少次，只执行1次
+    // 
+    function fn () {
+      console.log('xxxxx')
+    }
+
+    // var f = _.throttle(fn, 800)
+    // // f()
+    // // f()
+    // // f()
+    // // f()
+    // // f()
+    // // f()
+    
+    // setInterval(() => {
+    //   console.log('---------')
+    //   f()
+    // }, 100);
 
   </script>
 </body>
