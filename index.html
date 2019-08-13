@@ -11,24 +11,57 @@
 
   <script>
     // 函数防抖 debounce
-    function fn () {
-      console.log('xxxxxx')
-    }
+    // function fn () {
+    //   console.log('xxxxxx')
+    // }
     // fn()
     // fn()
     // fn()
     // 返回一个新的函数，不管调用多少次该函数，在指定时间内只执行一次
     // 每次调用该函数的时候，会继续延迟指定时间执行
     // 最后一次调用f的时候，延迟指定时间再执行
-    var f = _.debounce(fn, 400)
+    // var f = _.debounce(fn, 400)
+    // // f()
+    // // f()
+    // // f()
+
+    // setInterval(() => {
+    //   console.log('-------')
+    //   f()
+    // }, 100);
+
+
+    // 函数防抖 - 原理
+    function fn () {
+      console.log('xxxxxx')
+      console.log(this)
+    }
+
+    var obj = { fun: debounce(fn, 400) }
+    obj.fun()
+    obj.fun()
+    obj.fun()
+
+    function debounce (fn, delay) {
+      // 定时器
+      var timerId
+      return function () {
+        clearTimeout(timerId)
+        timerId = setTimeout(() => {
+          // 1. this指向的问题
+          // 2. 参数的问题
+          fn.apply(this, arguments)
+        }, delay);
+      }
+    }
+
+    // var f = debounce(, 400)
+    // f()
+    // f()
     // f()
     // f()
     // f()
 
-    setInterval(() => {
-      console.log('-------')
-      f()
-    }, 100);
   </script>
 </body>
 </html>
