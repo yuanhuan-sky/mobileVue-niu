@@ -28,6 +28,7 @@
       </div>
       <van-grid class="channel-content" :gutter="10" clickable>
         <van-grid-item
+          @click="handleMy(index)"
           v-for="(item, index) in channels"
           :key="item.id">
           <span class="text" :class="{ active: index === activeIndex }">{{ item.name }}</span>
@@ -95,6 +96,10 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    // 点击我的频道，把当前索引传递给home组件，并且隐藏当前组件
+    handleMy (index) {
+      this.$emit('selectMyIndex', index)
     }
   }
 }

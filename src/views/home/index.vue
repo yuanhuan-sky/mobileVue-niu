@@ -59,7 +59,11 @@
     -->
     <more-action @handleSuccess="handleSuccess" :currentArticle="currentArticle" v-model="showAction"></more-action>
     <!-- 频道管理 -->
-    <home-channel v-model="showChannel" :channels="channels" :activeIndex="activeTabIndex"></home-channel>
+    <home-channel
+      v-model="showChannel"
+      :channels="channels"
+      :activeIndex="activeTabIndex"
+      @selectMyIndex="handleMyIndex"></home-channel>
   </div>
 </template>
 
@@ -191,6 +195,11 @@ export default {
       })
 
       articles.splice(index, 1)
+    },
+    // 处理频道管理中选择我的频道的过程
+    handleMyIndex (index) {
+      this.activeTabIndex = index
+      this.showChannel = false
     }
   }
 }
