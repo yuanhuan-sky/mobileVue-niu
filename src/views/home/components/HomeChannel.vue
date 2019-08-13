@@ -28,10 +28,9 @@
       </div>
       <van-grid class="channel-content" :gutter="10" clickable>
         <van-grid-item
-          v-for="value in 8"
-          :key="value"
-          text="文字">
-          <span class="text">文字</span>
+          v-for="item in channels"
+          :key="item.id">
+          <span class="text">{{ item.name }}</span>
           <van-icon class="close-icon" name="close" v-show="showClose" />
         </van-grid-item>
       </van-grid>
@@ -61,7 +60,7 @@
 <script>
 export default {
   name: 'HomeChannel',
-  props: ['value'],
+  props: ['value', 'channels'],
   data () {
     return {
       showClose: false
