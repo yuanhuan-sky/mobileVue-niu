@@ -57,6 +57,8 @@
       @input="showAction = $event"
     -->
     <more-action @handleSuccess="handleSuccess" :currentArticle="currentArticle" v-model="showAction"></more-action>
+    <!-- 频道管理 -->
+    <home-channel></home-channel>
   </div>
 </template>
 
@@ -64,10 +66,12 @@
 import { getUserChannels } from '@/api/channel'
 import { getUserArticles } from '@/api/article'
 import MoreAction from './components/MoreAction'
+import HomeChannel from './components/HomeChannel'
 export default {
   name: 'Home',
   components: {
-    MoreAction
+    MoreAction,
+    HomeChannel
   },
   data () {
     return {
@@ -134,7 +138,7 @@ export default {
     // list 组件的
     async onLoad() {
       // 写一行代码，延时 800 毫秒，再执行后续的代码
-      await this.$sleep(2000)
+      await this.$sleep(800)
 
       // 当list组件的load事件触发，会把loading设置为true
       // 获取当前频道的id
@@ -209,4 +213,3 @@ export default {
 //   color: red;
 // }
 </style>
-
