@@ -28,9 +28,9 @@
       </div>
       <van-grid class="channel-content" :gutter="10" clickable>
         <van-grid-item
-          v-for="item in channels"
+          v-for="(item, index) in channels"
           :key="item.id">
-          <span class="text">{{ item.name }}</span>
+          <span class="text" :class="{ active: index === activeIndex }">{{ item.name }}</span>
           <van-icon class="close-icon" name="close" v-show="showClose" />
         </van-grid-item>
       </van-grid>
@@ -60,7 +60,7 @@
 import { getAllChannels } from '@/api/channel'
 export default {
   name: 'HomeChannel',
-  props: ['value', 'channels'],
+  props: ['value', 'channels', 'activeIndex'],
   data () {
     return {
       showClose: false,
