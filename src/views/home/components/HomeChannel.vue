@@ -47,6 +47,7 @@
       </div>
       <van-grid class="channel-content" :gutter="10" clickable>
         <van-grid-item
+          @click="handleSelect(item)"
           v-for="item in recommendChannels"
           :key="item.id">
           <div class="info">
@@ -111,6 +112,11 @@ export default {
         this.channels.splice(index, 1)
         // 发送请求，记录当前我的频道
       }
+    },
+    // 点击推荐频道，把点击的频道添加到我的频道
+    handleSelect (item) {
+      this.channels.push(item)
+      // 发送请求，保存我的频道到服务器
     }
   }
 }
