@@ -99,7 +99,14 @@ export default {
     },
     // 点击我的频道，把当前索引传递给home组件，并且隐藏当前组件
     handleMy (index) {
-      this.$emit('selectMyIndex', index)
+      // 判断当前是否是编辑模式
+      if (!this.showClose) {
+        this.$emit('selectMyIndex', index)
+      } else {
+        // 仅仅删除了内存中的数据
+        this.channels.splice(index, 1)
+        // 发送请求，记录当前我的频道
+      }
     }
   }
 }
