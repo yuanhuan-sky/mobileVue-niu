@@ -32,7 +32,8 @@
           v-for="(item, index) in channels"
           :key="item.id">
           <span class="text" :class="{ active: index === activeIndex }">{{ item.name }}</span>
-          <van-icon class="close-icon" name="close" v-show="showClose" />
+          <!-- 删除按钮 -->
+          <van-icon class="close-icon" name="close" v-show="showClose && item.name!=='推荐' " />
         </van-grid-item>
       </van-grid>
     </div>
@@ -85,7 +86,6 @@ export default {
         return !ids.includes(item.id)
       })
     }
-
   },
   methods: {
     // 加载所有频道
@@ -103,6 +103,10 @@ export default {
       if (!this.showClose) {
         this.$emit('selectMyIndex', index)
       } else {
+        // 如果是推荐，什么都不做
+        if (index === 0) {
+          return
+        }
         // 仅仅删除了内存中的数据
         this.channels.splice(index, 1)
         // 发送请求，记录当前我的频道
