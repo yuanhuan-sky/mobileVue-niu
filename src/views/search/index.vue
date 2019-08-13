@@ -23,6 +23,7 @@
 
 <script>
 import { getSuggestions } from '@/api/search'
+import _ from 'lodash'
 export default {
   data () {
     return {
@@ -35,7 +36,7 @@ export default {
       console.log('xxx')
     },
     // 搜索建议
-    async handleSuggestion () {
+    handleSuggestion: _.debounce(async function () {
       try {
         if (this.value.trim() === '') {
           this.suggestionList = []
@@ -47,7 +48,7 @@ export default {
       } catch (err) {
         console.log(err)
       }
-    }
+    }, 500)
   }
 }
 </script>

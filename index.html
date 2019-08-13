@@ -7,31 +7,28 @@
   <title>Document</title>
 </head>
 <body>
-  <div id="app">
-    {{ count }}
+  <script src="./node_modules/lodash/lodash.js"></script>
 
-    {{ obj.name }}
-  </div>
-
-  <script src="./node_modules/vue/dist/vue.js"></script>
   <script>
-    const vm = new Vue({
-      el: '#app',
-      data: {
-        count: 0,
-        obj: {}
-      },
-      created() {
-        // 动态增加的属性，不是响应式的
-        // this.obj.name = '张三'
-        
-        // 如果想要动态的增加一个响应式数据
-        // 1. 给哪个对象
-        // 2. 增加什么属性
-        // 3. 初始值
-        this.$set(this.obj, 'name', '李四')
-      }
-    })
+    // 函数防抖 debounce
+    function fn () {
+      console.log('xxxxxx')
+    }
+    // fn()
+    // fn()
+    // fn()
+    // 返回一个新的函数，不管调用多少次该函数，在指定时间内只执行一次
+    // 每次调用该函数的时候，会继续延迟指定时间执行
+    // 最后一次调用f的时候，延迟指定时间再执行
+    var f = _.debounce(fn, 400)
+    // f()
+    // f()
+    // f()
+
+    setInterval(() => {
+      console.log('-------')
+      f()
+    }, 100);
   </script>
 </body>
 </html>
