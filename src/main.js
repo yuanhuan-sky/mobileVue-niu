@@ -9,13 +9,15 @@ import '@/styles/index.less'
 import 'amfe-flexible'
 // 导入过滤器
 import '@/filters'
+// 导入检查是否登录的插件
+import CheckLogin from '@/utils/CheckLogin'
 
 // 表单验证插件
 import VeeValidate, { Validator } from 'vee-validate'
 // 汉化文件
 import zhCN from 'vee-validate/dist/locale/zh_CN'
 
-
+Vue.use(CheckLogin)
 Vue.use(VeeValidate)
 // 本地化
 Validator.localize('zh_CN', zhCN)

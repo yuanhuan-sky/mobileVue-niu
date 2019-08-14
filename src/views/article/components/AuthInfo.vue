@@ -26,6 +26,9 @@ export default {
     // 点击关注按钮
     async handleFollow () {
       // 判断是否登录，提示
+      if (!this.$checkLogin()) {
+        return
+      }
 
       try {
         if (this.article.is_followed) {
