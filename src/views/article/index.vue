@@ -7,16 +7,13 @@
       fixed
       @click-left="$router.back()"
     />
-    <div class="article">
+    <div class="article" v-if="article">
       <!-- 文章标题 -->
-      <h2 class="article-title">这是文章的标题</h2>
+      <h2 class="article-title">{{ article.title }}</h2>
       <!-- 作者信息 -->
       <auth-info></auth-info>
       <!-- 文章内容 -->
-      <div class="article-content">
-        <p>hello world</p>
-        <p>hello world</p>
-        <p>hello world</p>
+      <div class="article-content" v-html="article.content">
       </div>
       <!-- 点赞和取消 -->
       <more-action></more-action>
@@ -27,11 +24,32 @@
 <script>
 import AuthInfo from './components/AuthInfo'
 import MoreAction from './components/MoreAction'
+import { getArticle } from '@/api/article'
 export default {
   name: 'Article',
+  props: ['id'],
   components: {
     AuthInfo,
     MoreAction
+  },
+  data () {
+    return {
+      article: null
+    }
+  },
+  created () {
+    this.loadArticle()
+  },
+  methods: {
+    // 加载文章详情
+    async loadArticle () {
+      try {
+        const data = await getArticle(this.id)
+        this.article = data
+      } catch (err) {
+        console.log(err)
+      }
+    }
   }
 }
 </script>
