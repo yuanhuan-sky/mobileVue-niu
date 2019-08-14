@@ -16,14 +16,15 @@
     >
       <van-cell
         v-for="item in list"
-        :key="item"
-        :title="item"
+        :key="item.art_id.toString()"
+        :title="item.title"
       />
     </van-list>
   </div>
 </template>
 
 <script>
+import { getSearchResults } from '@/api/search'
 export default {
   props: ['q'],
   created () {
@@ -33,25 +34,43 @@ export default {
     return {
       list: [],
       loading: false,
-      finished: false
+      finished: false,
+      // 分页数据
+      // 页码
+      page: 1,
+      // 每页获取多少条
+      perPage: 10,
+      // 总共多少页
+      pageCount: 0
     };
   },
 
   methods: {
-    onLoad() {
-      // 异步更新数据
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1);
-        }
-        // 加载状态结束
-        this.loading = false;
+    async onLoad () {
+      // 延迟加载
+      await this.$sleep(1000)
 
-        // 数据全部加载完成
-        if (this.list.length >= 40) {
-          this.finished = true;
+      try {
+        const data = await getSearchResults({
+          page: this.page,
+          perPage: this.perPage,
+          q: this.q
+        })
+
+        this.list.push(...data.results)
+
+        this.loading = false
+        // 是否加载完毕？
+        this.pageCount = Math.ceil(data.total_count / this.perPage)
+        // 如果当前页码，等于总页数
+        if (page >= this.pageCount) {
+          this.finished = true
         }
-      }, 500);
+
+        this.page++
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 // 获取动态路由参数
