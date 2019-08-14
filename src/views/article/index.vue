@@ -11,7 +11,7 @@
       <!-- 文章标题 -->
       <h2 class="article-title">这是文章的标题</h2>
       <!-- 作者信息 -->
-      
+      <auth-info></auth-info>
       <!-- 文章内容 -->
       <div class="article-content">
         <p>hello world</p>
@@ -19,13 +19,20 @@
         <p>hello world</p>
       </div>
       <!-- 点赞和取消 -->
+      <more-action></more-action>
     </div>
   </div>
 </template>
 
 <script>
+import AuthInfo from './components/AuthInfo'
+import MoreAction from './components/MoreAction'
 export default {
-
+  name: 'Article',
+  components: {
+    AuthInfo,
+    MoreAction
+  }
 }
 </script>
 
