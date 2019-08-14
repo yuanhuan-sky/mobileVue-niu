@@ -16,13 +16,16 @@
         @click="onSearch(item)"
         v-for="item in suggestionList"
         :key="item"
-        :title="item"
-        icon="search"/>
+        icon="search">
+        <div slot="title" v-html="hightlight(item)"></div>
+      </van-cell>
+
     </van-cell-group>
     <!-- 搜索历史 -->
     <van-cell-group v-show="!suggestionList.length">
       <van-cell
-        title="历史记录">
+        title="历史记录"
+        >
         <van-icon
           v-show="!showClose"
           slot="right-icon"
@@ -36,6 +39,7 @@
         </div>
       </van-cell>
       <van-cell
+        @click="onSearch(item)"
         v-for="item in histories"
         :key="item"
         :title="item"
@@ -89,7 +93,12 @@ export default {
       } catch (err) {
         console.log(err)
       }
-    }, 500)
+    }, 500),
+    hightlight(text) {
+      return text.toLocaleLowerCase()
+        .split(this.value)
+        .join(`<span style="color: red">${this.value}</span>`)
+    }
   }
 }
 </script>
