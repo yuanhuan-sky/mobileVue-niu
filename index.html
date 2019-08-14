@@ -97,9 +97,9 @@
         const now = Date.now()
         // 判断 当前时间是否经过了delay
         if (last && now < last + delay) {
-          clearInterval(timerId)
           // 时间未到，开启定时器执行
           timerId = setTimeout(() => {
+            clearInterval(timerId)
             last = now
             fn.apply(this, arguments)
           }, delay);
