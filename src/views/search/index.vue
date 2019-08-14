@@ -71,6 +71,10 @@ export default {
   },
   methods: {
     onSearch (value) {
+      // 历史记录的操作
+      // 判断用户是否登录，如果登录从服务器上获取数据
+      // 如果没有登录在本地存储中存储数据
+
       // 搜索文本框按回车，不传值  this.value
       // 点击搜索建议的时候会传值  value
       value = value || this.value
@@ -79,6 +83,14 @@ export default {
         this.histories.push(value)
         window.localStorage.setItem('history', JSON.stringify(this.histories))
       }
+
+      // 跳转到搜索结果页面
+      this.$router.push({
+        name: 'search-result',
+        params: {
+          q: value
+        }
+      })
     },
     // 搜索建议
     handleSuggestion: _.debounce(async function () {
