@@ -18,7 +18,33 @@
         v-for="item in list"
         :key="item.art_id.toString()"
         :title="item.title"
-      />
+      >
+        <div slot="label">
+          <template v-if="item.cover.type">
+            <van-grid :border="false" :column-num="3">
+              <van-grid-item v-for="(item, index) in item.cover.images" :key="index">
+                <van-image lazy-load :src="item" />
+              </van-grid-item>
+            </van-grid>
+          </template>
+          <p>
+            <span>{{ item.aut_name }}</span>&nbsp;
+            <span>{{ item.comm_count }}条评论</span>&nbsp;
+            <span>{{ item.pubdate | fmtDate }}</span>&nbsp;
+          </p>
+          <van-grid :column-num="3">
+            <van-grid-item
+              text="评论"
+            />
+            <van-grid-item
+              text="点赞"
+            />
+            <van-grid-item
+              text="分享"
+            />
+          </van-grid>
+        </div>
+      </van-cell>
     </van-list>
   </div>
 </template>
@@ -63,7 +89,7 @@ export default {
         // 是否加载完毕？
         this.pageCount = Math.ceil(data.total_count / this.perPage)
         // 如果当前页码，等于总页数
-        if (page >= this.pageCount) {
+        if (this.page >= this.pageCount) {
           this.finished = true
         }
 
