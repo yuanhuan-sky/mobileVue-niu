@@ -96,7 +96,9 @@ export default {
         this.$store.commit('setUser', data)
         // 跳转到 home
         this.$router.push({
-          name: 'home'
+          // 获取当前路由地址中的查询字符串，如果有跳转到redirect的地址
+          // 如果没有跳转到首页
+          path: this.$route.query.redirect || '/'
         })
         this.$toast.success('登录成功')
 

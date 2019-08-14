@@ -1,6 +1,8 @@
 export default {
   install (Vue, options) {
     Vue.prototype.$checkLogin = function () {
+      // console.log(this.$router)
+      // console.log(this.$route)
       // 有登录状态
       if (this.$store.state.user) {
         return true
@@ -12,7 +14,11 @@ export default {
       }).then(() => {
         // on confirm 点击了确认按钮
         this.$router.push({
-          name: 'login'
+          name: 'login',
+          // 设置redirect，记录当前从哪里跳转到登录页面的
+          query: {
+            redirect: this.$route.fullPath
+          }
         })
       }).catch(() => {
         // on cancel 点击了取消按钮
