@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { sendComment } from '@/api/comment'
+
 export default {
   name: 'SendComment'
 }
