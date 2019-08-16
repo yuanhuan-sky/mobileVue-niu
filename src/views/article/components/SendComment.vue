@@ -1,12 +1,15 @@
 <template>
   <div class="add-comment">
     <div class="input-wrap">
-      <input type="text" placeholder="请输入评论内容">
+      <input v-model="content" type="text" placeholder="请输入评论内容">
     </div>
     <div class="more-wrap">
       <van-icon
+        v-if="artId"
         name="star-o"></van-icon>
       <van-button
+        @click="handleSend"
+        :disabled="content.length === 0"
         size="small">发布</van-button>
     </div>
   </div>
@@ -16,7 +19,35 @@
 import { sendComment } from '@/api/comment'
 
 export default {
-  name: 'SendComment'
+  name: 'SendComment',
+  props: ['id', 'artId'],
+  data () {
+    return {
+      content: ''
+    }
+  },
+  methods: {
+    async handleSend () {
+      if (!this.$checkLogin()) {
+        return
+      }
+
+      try {
+        const data = await sendComment({
+          target: this.id,
+          content: this.content,
+          artId: this.artId
+        })
+        // 刚刚发表的评论对象
+        // data.new_obj
+        console.log(data)
+        this.$toast.success('操作成功')
+
+      } catch (err) {
+        this.$toast.fail('操作失败' + err)
+      }
+    }
+  }
 }
 </script>
 

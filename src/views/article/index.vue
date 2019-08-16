@@ -21,7 +21,7 @@
       <!-- 组件将来要重复使用，可能展示文章的评论，还可能展示评论的评论 -->
       <comment-list :id="article.art_id.toString()" :isArticle="true"></comment-list>
       <!-- 发布评论 -->
-      <send-comment></send-comment>
+      <send-comment :id="article.art_id.toString()"></send-comment>
     </div>
   </div>
 </template>
