@@ -53,12 +53,22 @@ export default {
   methods: {
     // 加载文章详情
     async loadArticle () {
+      const toast = this.$toast.loading({
+        mask: true,
+        duration: 0,       // 持续展示 toast
+        forbidClick: true, // 禁用背景点击
+        loadingType: 'spinner',
+        message: '正在加载中...'
+      });
+
       try {
         const data = await getArticle(this.id)
         this.article = data
       } catch (err) {
         console.log(err)
       }
+
+      toast.clear()
     }
   }
 }

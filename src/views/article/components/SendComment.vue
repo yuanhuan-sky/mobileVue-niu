@@ -40,7 +40,9 @@ export default {
         })
         // 刚刚发表的评论对象
         // data.new_obj
-        console.log(data)
+        // 因为在index.vue 中 CommentLIst和SendCOmment是兄弟组件
+        // 可以使用event but 把刚刚发布的评论，通过事件的机制，通知给CommentLIst。显示最新评论
+        // console.log(data)
         this.$toast.success('操作成功')
 
       } catch (err) {
