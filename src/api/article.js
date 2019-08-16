@@ -58,9 +58,19 @@ export const likeArticle = (id) => {
   })
 }
 
+// 取消点赞
+export const unLikeArticle = (id) => {
+  return request.delete(`/app/v1_0/article/likings/${id}`)
+}
+
 // 不喜欢
 export const disLikeArticle = (id) => {
   return request.post('/app/v1_0/article/dislikes', {
     target: id
   })
+}
+
+// 取消不喜欢
+export const unDislikeArticle = (id) => {
+  return request.delete(`/app/v1_0/article/dislikes/${id}`)
 }
