@@ -20,6 +20,8 @@
       <!-- 评论列表 -->
       <!-- 组件将来要重复使用，可能展示文章的评论，还可能展示评论的评论 -->
       <comment-list :id="article.art_id.toString()" :isArticle="true"></comment-list>
+      <!-- 发布评论 -->
+      <send-comment></send-comment>
     </div>
   </div>
 </template>
@@ -29,6 +31,7 @@ import AuthInfo from './components/AuthInfo'
 import MoreAction from './components/MoreAction'
 import { getArticle } from '@/api/article'
 import CommentList from './components/CommentList'
+import SendComment from './components/SendComment'
 
 export default {
   name: 'Article',
@@ -36,7 +39,8 @@ export default {
   components: {
     AuthInfo,
     MoreAction,
-    CommentList
+    CommentList,
+    SendComment
   },
   data () {
     return {
