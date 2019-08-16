@@ -17,6 +17,9 @@
       </div>
       <!-- 点赞和取消 -->
       <more-action :article="article"></more-action>
+      <!-- 评论列表 -->
+      <!-- 组件将来要重复使用，可能展示文章的评论，还可能展示评论的评论 -->
+      <comment-list></comment-list>
     </div>
   </div>
 </template>
@@ -25,12 +28,15 @@
 import AuthInfo from './components/AuthInfo'
 import MoreAction from './components/MoreAction'
 import { getArticle } from '@/api/article'
+import CommentList from './components/CommentList'
+
 export default {
   name: 'Article',
   props: ['id'],
   components: {
     AuthInfo,
-    MoreAction
+    MoreAction,
+    CommentList
   },
   data () {
     return {
