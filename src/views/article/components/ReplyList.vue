@@ -29,12 +29,21 @@
         <span>{{ $store.state.currentComment.pubdate | fmtDate }}</span>&nbsp;&nbsp;<span>回复 {{ $store.state.currentComment.reply_count }}</span>
       </div>
     </van-cell>
+
+    <!-- 评论列表 -->
+    <h6>全部评论</h6>
+    <comment-list :id="$store.state.currentComment.com_id.toString()" :isArticle="false"></comment-list>
   </van-popup>
 </template>
 
 <script>
+import CommentList from './CommentList'
+
 export default {
   name: 'ReplyList',
+  components: {
+    CommentList
+  },
   data () {
     return {
       show: true
