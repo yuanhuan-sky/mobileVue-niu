@@ -79,6 +79,12 @@ export default {
     MoreAction,
     HomeChannel
   },
+  activated () {
+    console.log('activated')
+  },
+  deactivated () {
+    console.log('deactivated')
+  },
   data () {
     return {
       // list 需要的数据
