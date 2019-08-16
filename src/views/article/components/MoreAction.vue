@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { likeArticle, disLikeArticle } from '@/api/article'
+
 export default {
   name: 'MoreAction'
 }

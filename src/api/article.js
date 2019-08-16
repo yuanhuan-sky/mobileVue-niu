@@ -48,3 +48,19 @@ export const reportArticle = ({
 export const getArticle = (id) => {
   return request.get(`/app/v1_0/articles/${id}`)
 }
+
+
+// 用户对文章的态度, -1: 无态度，0-不喜欢，1-点赞
+// 点赞
+export const likeArticle = (id) => {
+  return request.post('/app/v1_0/article/likings', {
+    target: id
+  })
+}
+
+// 不喜欢
+export const disLikeArticle = (id) => {
+  return request.post('/app/v1_0/article/dislikes', {
+    target: id
+  })
+}
