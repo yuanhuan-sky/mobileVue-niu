@@ -23,7 +23,7 @@
       <!-- 发布评论 -->
       <send-comment :id="article.art_id.toString()"></send-comment>
       <!-- 回复评论的列表 -->
-      <reply-list v-if="$store.state.showReplyList"></reply-list>
+      <reply-list :id="id" v-if="$store.state.showReplyList"></reply-list>
     </div>
   </div>
 </template>

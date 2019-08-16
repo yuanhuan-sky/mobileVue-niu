@@ -4,6 +4,8 @@
       <input v-model="content" type="text" placeholder="请输入评论内容">
     </div>
     <div class="more-wrap">
+      <!-- 如果是文章的发布评论不显示 -->
+      <!-- 如果是评论的发布评论，显示 -->
       <van-icon
         v-if="artId"
         name="star-o"></van-icon>
