@@ -19,7 +19,7 @@
       <more-action :article="article"></more-action>
       <!-- 评论列表 -->
       <!-- 组件将来要重复使用，可能展示文章的评论，还可能展示评论的评论 -->
-      <comment-list></comment-list>
+      <comment-list :id="article.art_id.toString()" :isArticle="true"></comment-list>
     </div>
   </div>
 </template>
