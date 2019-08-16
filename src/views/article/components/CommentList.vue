@@ -21,7 +21,7 @@
       <!-- 评论内容 -->
       <div slot="label">
         <p>{{ item.content }}</p>
-        <span>{{ item.pubdate | fmtDate }}</span>&nbsp;&nbsp;<span>回复 {{ item.reply_count }}</span>
+        <span>{{ item.pubdate | fmtDate }}</span>&nbsp;&nbsp;<span @click="handeReply(item)">回复 {{ item.reply_count }}</span>
       </div>
     </van-cell>
   </van-list>
@@ -65,6 +65,13 @@ export default {
       } catch (err) {
         console.log('获取评论失败' + err)
       }
+    },
+    // 点击回复按钮
+    // 1. 控制弹出层显示
+    // 2. 记录当前点击回复按钮对应的评论对象
+    handeReply (item) {
+      this.$store.commit('setShowReplyList', true)
+      this.$store.commit('setCurrentComment', item)
     }
   }
 }

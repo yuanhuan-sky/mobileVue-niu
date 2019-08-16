@@ -22,6 +22,8 @@
       <comment-list :id="article.art_id.toString()" :isArticle="true"></comment-list>
       <!-- 发布评论 -->
       <send-comment :id="article.art_id.toString()"></send-comment>
+      <!-- 回复评论的列表 -->
+      <reply-list v-if="$store.state.showReplyList"></reply-list>
     </div>
   </div>
 </template>
@@ -32,6 +34,7 @@ import MoreAction from './components/MoreAction'
 import { getArticle } from '@/api/article'
 import CommentList from './components/CommentList'
 import SendComment from './components/SendComment'
+import ReplyList from './components/ReplyList'
 
 export default {
   name: 'Article',
@@ -40,7 +43,8 @@ export default {
     AuthInfo,
     MoreAction,
     CommentList,
-    SendComment
+    SendComment,
+    ReplyList
   },
   data () {
     return {
@@ -59,7 +63,7 @@ export default {
         forbidClick: true, // 禁用背景点击
         loadingType: 'spinner',
         message: '正在加载中...'
-      });
+      })
 
       try {
         const data = await getArticle(this.id)
