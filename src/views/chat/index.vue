@@ -2,11 +2,11 @@
   <div class="page-user-chat">
     <van-nav-bar fixed left-arrow @click-left="$router.back()" title="小智同学"></van-nav-bar>
     <!-- 聊天列表 -->
-    <div class="chat-list">
+    <div class="chat-list" ref="chatList">
       <!-- 聊天消息 -->
       <div
-        v-for="msg in messages"
-        :key="msg.timestamp"
+        v-for="(msg, index) in messages"
+        :key="msg.timestamp + index"
         class="chat-item"
         :class="msg.robot ? 'left' : 'right'">
         <van-image fit="cover" round src="https://img.yzcdn.cn/vant/cat.jpeg" />
@@ -63,6 +63,8 @@ export default {
         robot: true,
         ...data
       })
+      // 
+      this.handleScroll()
     })
     this.socket.on('disconnect', () => {
       console.log('断开连接')
@@ -77,8 +79,17 @@ export default {
       }
       // 存储消息
       this.messages.push(msg)
-
+      // 发送消息
       this.socket.send(msg)
+      this.handleScroll()
+    },
+    // 发送消息，处理滚动条
+    handleScroll () {
+      // 数据更新之后，等待本次更新后的数据在界面上渲染之后再执行
+      this.$nextTick(() => {
+        // 设置 chat-list 的滚动出去的距离，是chat-list的最大告诉scrollHeight
+        this.$refs.chatList.scrollTop = this.$refs.chatList.scrollHeight
+      })
     }
   }
 }
