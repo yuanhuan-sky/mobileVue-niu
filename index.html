@@ -7,126 +7,35 @@
   <title>Document</title>
 </head>
 <body>
-  <script src="./node_modules/lodash/lodash.js"></script>
-
+  <input type="file" id="file">
+  <img src="" id="img">
   <script>
-    // 函数防抖 debounce
-    // function fn () {
-    //   console.log('xxxxxx')
-    // }
-    // fn()
-    // fn()
-    // fn()
-    // 返回一个新的函数，不管调用多少次该函数，在指定时间内只执行一次
-    // 每次调用该函数的时候，会继续延迟指定时间执行
-    // 最后一次调用f的时候，延迟指定时间再执行
-    // var f = _.debounce(fn, 400)
-    // // f()
-    // // f()
-    // // f()
+    var file = document.querySelector('#file')
+    var img = document.querySelector('#img')
 
-    // setInterval(() => {
-    //   console.log('-------')
-    //   f()
-    // }, 100);
+    file.onchange = function () {
+      // console.dir(file)
+      // 浏览器端不允许操作本地文件
+      // 浏览器默认不允许img标签展示本地绝对路径的图片
 
-
-    // // 函数防抖 - 原理
-    // function fn () {
-    //   console.log('xxxxxx')
-    //   console.log(this)
-    // }
-
-    // var obj = { fun: debounce(fn, 400) }
-    // obj.fun()
-    // obj.fun()
-    // obj.fun()
-
-    // function debounce (fn, delay) {
-    //   // 定时器
-    //   var timerId
-    //   return function () {
-    //     clearTimeout(timerId)
-    //     timerId = setTimeout(() => {
-    //       // 1. this指向的问题
-    //       // 2. 参数的问题
-    //       fn.apply(this, arguments)
-    //     }, delay);
-    //   }
-    // }
-
-    // var f = debounce(, 400)
-    // f()
-    // f()
-    // f()
-    // f()
-    // f()
+      // html5以后浏览器端提供了一个api，fileReader
+      // 把本地文件的内容，转换成base64编码的字符串形式
+      // var fileReader = new FileReader()
+      // // 把文件转换成base64的字符串
+      // fileReader.readAsDataURL(file.files[0])
+      // fileReader.onload = function (e) {
+      //   // base64的图片
+      //   // console.log(e.target.result)
+      //   img.src = e.target.result
+      // }
 
 
+      // HTML5, URL.createObjectURL() 在当前浏览器标签中生成的临时的内容中的图片的访问地址
+      // 标签一旦关闭，地址就不可用了
+      // console.log(URL.createObjectURL(file.files[0]))
 
-
-
-    // 函数节流 throttle
-    // 不管调用多少次fn，最终只执行一次
-    // 调用很多次f，会立即执行一次，然后在指定的时间内不管调用多少次，只执行1次
-    // 
-    // function fn () {
-    //   console.log('xxxxx')
-    // }
-
-    // var f = _.throttle(fn, 800)
-    // // f()
-    // // f()
-    // // f()
-    // // f()
-    // // f()
-    // // f()
-    
-    // setInterval(() => {
-    //   console.log('---------')
-    //   f()
-    // }, 100);
-
-
-    // 函数节流原理
-    function throttle (fn, delay) {
-      // last 记录最后一次调用fn的时间
-      let timerId, last
-      return function () {
-        // 记录当前时间
-        const now = Date.now()
-        // 判断 当前时间是否经过了delay
-        if (last && now < last + delay) {
-          // 时间未到，开启定时器执行
-          timerId = setTimeout(() => {
-            clearInterval(timerId)
-            last = now
-            fn.apply(this, arguments)
-          }, delay);
-        } else {
-          // 时间到了
-          last = now
-          fn.apply(this, arguments)
-        }
-      }
+      img.src = URL.createObjectURL(file.files[0])
     }
-
-
-    function fn () {
-      console.log('xxxxx')
-    }
-
-    var f = throttle(fn, 800)
-    // f()
-    // f()
-    // f()
-    // f()
-    // f()
-    // f()
-    setInterval(() => {
-      console.log('---------')
-      f()
-    }, 100);
 
   </script>
 </body>
