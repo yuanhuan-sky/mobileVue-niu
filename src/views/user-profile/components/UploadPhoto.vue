@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { uploadPhoto } from '@/api/user'
 import Vue from 'vue'
 import { ImagePreview } from 'vant'
 
@@ -44,9 +45,38 @@ export default {
           URL.createObjectURL(this.$refs.file.files[0])
         ],
         showIndex: false,
-        onClose() {
-          // do something
+        onClose: this.handleUpload
+      })
+    },
+    // 上传文件
+    async handleUpload () {
+      // 弹出确认框
+      this.$dialog.confirm({
+        message: '是否设置该图片为头像'
+      }).then(async () => {
+        // 加载提示
+        const toast = this.$toast.loading({
+          duration: 0,       // 持续展示 toast
+          forbidClick: true, // 禁用背景点击
+          loadingType: 'spinner',
+          message: '正在上传...'
+        })
+
+        // on confirm
+        // 上传图片
+        try {
+          const data = await uploadPhoto('photo', this.$refs.file.files[0])
+          // 更改父组件中显示的头像
+        
+          this.$toast.success('上传成功')
+        } catch (err) {
+          this.$toast.fail('上传失败' + err)
         }
+
+        toast.clear()
+
+      }).catch(() => {
+        // on cancel
       })
     }
   }
