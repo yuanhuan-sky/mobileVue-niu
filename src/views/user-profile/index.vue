@@ -8,7 +8,7 @@
     />
       <!-- @click-right="btnSave" -->
     <van-cell-group>
-      <van-cell title="头像" is-link>
+      <van-cell title="头像" is-link @click="showUpload = true">
         <div slot="default">
           <img width="30" height="30" :src="currentUser.photo" alt="">
         </div>
@@ -20,7 +20,7 @@
       <van-cell title="生日" is-link :value="currentUser.birthday"/>
     </van-cell-group>
     <!-- 弹出选择图片 -->
-    <upload-photo></upload-photo>
+    <upload-photo v-model="showUpload"></upload-photo>
   </div>
 </template>
 
@@ -34,7 +34,8 @@ export default {
   },
   data () {
     return {
-      currentUser: null
+      currentUser: null,
+      showUpload: false
     }
   },
   created () {
