@@ -19,13 +19,19 @@
       <van-cell title="性别" is-link :value="currentUser.gender ? '女' : '男'" />
       <van-cell title="生日" is-link :value="currentUser.birthday"/>
     </van-cell-group>
+    <!-- 弹出选择图片 -->
+    <upload-photo></upload-photo>
   </div>
 </template>
 
 <script>
 import { getUserProfile } from '@/api/user'
+import UploadPhoto from './components/UploadPhoto'
 export default {
   name: 'UserProfile',
+  components: {
+    UploadPhoto
+  },
   data () {
     return {
       currentUser: null
@@ -47,6 +53,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="less" scoped>
+.van-dialog /deep/ .van-cell__title {
+  text-align: center;
+}
 </style>
