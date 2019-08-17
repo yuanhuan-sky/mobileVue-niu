@@ -20,7 +20,7 @@
       <van-cell title="生日" is-link :value="currentUser.birthday"/>
     </van-cell-group>
     <!-- 弹出选择图片 -->
-    <upload-photo v-model="showUpload"></upload-photo>
+    <upload-photo @upload-success="handleUploadSuccess" v-model="showUpload"></upload-photo>
   </div>
 </template>
 
@@ -49,6 +49,10 @@ export default {
       } catch (err) {
         this.$toast.fail('获取用户资料失败' + err)
       }
+    },
+    //  头像上传成功后，更新头像
+    handleUploadSuccess (photo) {
+      this.currentUser.photo = photo
     }
   }
 }

@@ -67,7 +67,7 @@ export default {
         try {
           const data = await uploadPhoto('photo', this.$refs.file.files[0])
           // 更改父组件中显示的头像
-        
+          this.$emit('upload-success', data.photo)
           this.$toast.success('上传成功')
         } catch (err) {
           this.$toast.fail('上传失败' + err)
