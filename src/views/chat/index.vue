@@ -21,12 +21,41 @@
 </template>
 
 <script>
+import io from 'socket.io-client'
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
       value: '',
-      commentLoading: false
+      commentLoading: false,
+      socket: null,
+      // 存储所有的消息
+      messages: []
     }
+  },
+  computed: {
+    ...mapState(['user'])
+  },
+  created () {
+    // 创建socket对象
+    this.socket = io('http://ttapi.research.itcast.cn', {
+      // 设置token
+      query: {
+        token: this.user.token
+      }
+    })
+    // 注册事件
+    this.socket.on('connect', () => {
+      console.log('连接成功')
+      // this.socket.send({ msg: '你好', timestamp: Date.now() })
+      this.socket.emit('message', { msg: '你好', timestamp: Date.now() })
+    })
+    this.socket.on('message', (data) => {
+      console.log(data)
+    })
+    this.socket.on('disconnect', () => {
+      console.log('断开连接')
+    })
   },
   methods: {
     send () {}
