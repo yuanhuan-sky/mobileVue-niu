@@ -37,13 +37,7 @@ export const unFollowUser = (id) => {
   return request.delete(`/app/v1_0/user/followings/${id}`)
 }
 
-
-// 在刷新token的时候不能够使用request发送请求
-// 因为request的请求拦截器中设置了token
-// /**
-//  * 刷新token
-//  * @param {*} refreshToken 
-//  */
-// export const getToken = (refreshToken) => {
-//   return request.put('/app/v1_0/authorizations')
-// }
+// 获取用户自己的信息
+export const getUserInfo = () => {
+  return request.get('/app/v1_0/user')
+}

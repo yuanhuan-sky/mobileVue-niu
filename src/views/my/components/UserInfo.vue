@@ -1,5 +1,5 @@
 <template>
-  <van-cell-group class="user-info">
+  <van-cell-group class="user-info" v-if="currentUser">
     <van-cell class="base-info" is-link :border="false">
       <div slot="title">
         <img class="avatar" src="http://toutiao.meiduo.site/FgSTA3msGyxp5-Oufnm5c0kjVgW7" alt="">
@@ -28,8 +28,27 @@
 </template>
 
 <script>
+import { getUserInfo } from '@/api/user'
 export default {
-
+  name: 'UserInfo',
+  data () {
+    return {
+      currentUser: null
+    }
+  },
+  created () {
+    this.loadUserInfo()
+  },
+  methods: {
+    async loadUserInfo () {
+      try {
+        const data = await getUserInfo()
+        this.currentUser = data
+      } catch (err) {
+        this.$toast.fail('获取用户信息失败' + err)
+      }
+    }
+  }
 }
 </script>
 
